@@ -8,6 +8,9 @@ export function extractVideoId(youtubeLink) {
   // Regular expression to match the video ID after '/live/' in live video links
   const liveRegex = /\/live\/([^/?]+)/;
 
+  // Regular expression to match the video ID in YouTube Shorts links
+  const shortsRegex = /(?:shorts(?:\/[^/?]+)?\/|youtu\.be\/)([^/?]+)/;
+
   // Check for a match in regular YouTube links
   const regularMatch = youtubeLink.match(regularRegex);
 
@@ -32,7 +35,15 @@ export function extractVideoId(youtubeLink) {
     return liveMatch[1];
   }
 
-  // Handle the case when no match is found for regular, 'youtu.be', and live video links
+  // Check for a match in YouTube Shorts links
+  const shortsMatch = youtubeLink.match(shortsRegex);
+
+  if (shortsMatch && shortsMatch[1]) {
+    // Return the extracted video ID from YouTube Shorts links
+    return shortsMatch[1];
+  }
+
+  // Handle the case when no match is found for regular, 'youtu.be', live, and Shorts links
   console.error("Invalid YouTube link");
   return null;
 }
