@@ -1,8 +1,11 @@
 ## YouTube Stats
 Enter the link of any YouTube video, short, or live feed and get the tags/keywords used onto it for statistics.
 
-# Demo:
+# Video Demo:
 https://hamzabraim.com/Home/Projects#youtube-stats
+
+# Live Demo:
+https://hamza-youtube-stats.netlify.app/
 
 
 # Getting Started with Create React App
