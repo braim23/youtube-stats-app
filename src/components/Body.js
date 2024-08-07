@@ -16,28 +16,36 @@ class Body extends Component {
   handleSubmit = async (term) => {
     try {
       var meow = extractVideoId(term);
-
+  
       const response = await youtube.get('/videos', {
         params: {
           id: meow,
         },
       });
-
+  
+      const video = response.data.items[0];
+      if (!video.snippet.tags) {
+        throw new Error("Video has no tags");
+      }
+  
       this.setState({
         everything: response.data.items,
-        tags: response.data.items[0].snippet.tags,
-        title: response.data.items[0].snippet.title,
-        channelTitle: response.data.items[0].snippet.channelTitle,
-        views: response.data.items[0].statistics.viewCount,
+        tags: video.snippet.tags,
+        title: video.snippet.title,
+        channelTitle: video.snippet.channelTitle,
+        views: video.statistics.viewCount,
         error: null, // Clear any previous errors
       });
     } catch (error) {
       console.error("Error fetching video data:", error);
       this.setState({
-        error: "Broken link, please enter a valid YouTube video link.",
+        error: error.message === "Video has no tags" 
+          ? "Seems like this video has no tags.. not sure tho."
+          : "Broken link, please enter a valid YouTube video link.",
       });
     }
   };
+  
 
   render() {
     return (
