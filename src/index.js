@@ -5,6 +5,7 @@ import App from "./App";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import About from "./About";
 import Header from "./components/Header";
+import Footer from "./components/Footer";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -12,10 +13,11 @@ root.render(
     <BrowserRouter>
     <Header/>
       <Routes>
-        
         <Route path="/" element={<App/>}></Route>
         <Route path="/about" element={<About/>}></Route>
       </Routes>
+    <Footer/>
+
     </BrowserRouter>
   </React.StrictMode>
 );
